@@ -1,18 +1,27 @@
 #@version = 1
 study("WMA RSI")
-src = input(close, title="source", type="source")
+# src = input(title="Source", type=input.source, defval=close)
 
-rsi_length = input(14, title="RSI", type="int")
-ema_length = input(9, title="EMA", type="int")
-wma_length = input(45, title="WMA", type="int")
-rsi = rsi(src, rsi_length)
+# rsi_length = input(14, title="RSI", type="int")
+# ema_length = input(9, title="EMA", type="int")
+# wma_length = input(45, title="WMA", type="int")
+# rsi = rsi(src, rsi_length)
+# ema = wma(rsi, ema_length)
+# wma = wma(rsi, wma_length)
+
+rsi_length = 14
+ema_length = 9
+wma_length = 45
+rsi = rsi(close, rsi_length)
 ema = wma(rsi, ema_length)
-wma = wma(rsi, wma_length)
+wma = wma(rsi, rsi_length)
 
 p0 = plot(80, "Upper Band", color=bar_index % 2 == 0 ? color("#606060") : color("#000000", 100), linewidth=4)
 p1 = plot(20, "Lower Band", color=bar_index % 2 == 0 ? color("#606060") : color("#000000", 100), linewidth=4)
 fill(p0, p1, color=color("#9915FF",95), title="Background")
 
-plot(rsi, color="purple", linewidth=2, title="RSI")
+
+
+plot(rsi, title="RSI", color="purple", linewidth=2)
 plot(ema, color="gray", linewidth=1, title="EMA")
 plot(wma, color="green", linewidth=2, title="WMA")
